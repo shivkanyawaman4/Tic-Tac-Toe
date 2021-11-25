@@ -3,14 +3,20 @@ import 'package:provider/src/provider.dart';
 import 'package:tictactoe/providers/game_provider.dart';
 import 'package:tictactoe/widgets/widgets.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  bool _isDark = true;
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final GameProvider state = context.watch<GameProvider>();
 
     return Scaffold(
-      backgroundColor: Colors.grey[850],
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.only(
@@ -18,9 +24,17 @@ class Home extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Switch(value: _isDark,
+                  onChanged: (v) {
+                    setState(() {
+                      _isDark = !_isDark;
+                    });
+                  },),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                Widgets.textField(
+                          text: 'Tic Tac Toe', shapeSize: 30, color:  Colors.lightBlue[800]),
                   Row(
                     children: [
                       Widgets.textField(
@@ -43,7 +57,7 @@ class Home extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 60, vertical: 5),
                       child: Text(
-                        'local game',
+                        "Let's Play",
                         style: TextStyle(
                           color: Colors.grey[400],
                           fontFamily: 'Montserrat',

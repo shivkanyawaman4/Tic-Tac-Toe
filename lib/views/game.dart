@@ -29,6 +29,9 @@ class Game extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey[850],
+        title:  Widgets.textField(
+                          text: 'Tic Tac Toe', shapeSize: 20, color:  Colors.white,),
+
         leading: IconButton(
             onPressed: () {
               context.read<GameProvider>().restartGame();

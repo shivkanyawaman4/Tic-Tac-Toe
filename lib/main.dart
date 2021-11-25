@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart' as service;
 import 'package:provider/provider.dart';
 import 'package:tictactoe/views/game.dart';
@@ -18,7 +19,21 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  // final ThemeData _light = ThemeData.light().copyWith(
+  //   primaryColor: Colors.green,
+  //   scaffoldBackgroundColor: Colors.green
+  // );
+  // final ThemeData _dark = ThemeData.dark().copyWith(
+  //   primaryColor: Colors.blueGrey,
+  //   scaffoldBackgroundColor: Colors.grey[850],
+  // );
+  final bool _isDark = false;
   @override
   Widget build(BuildContext context) {
     service.SystemChrome.setPreferredOrientations([
@@ -26,6 +41,9 @@ class MyApp extends StatelessWidget {
       service.DeviceOrientation.portraitDown,
     ]);
     return MaterialApp(
+        darkTheme: ThemeData(scaffoldBackgroundColor: Colors.grey[850]),
+        theme: ThemeData(scaffoldBackgroundColor: Colors.green),
+        themeMode: _isDark ? ThemeMode.dark : ThemeMode.light,
         debugShowCheckedModeBanner: false,
         initialRoute: '/',
         routes: {
