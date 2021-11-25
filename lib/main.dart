@@ -19,6 +19,10 @@ void main() {
   );
 }
 
+final darkNotifier = ValueNotifier<bool>(
+    SchedulerBinding.instance?.window.platformBrightness == Brightness.dark);
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 class MyApp extends StatefulWidget {
   @override
   State<MyApp> createState() => _MyAppState();
@@ -33,22 +37,37 @@ class _MyAppState extends State<MyApp> {
   //   primaryColor: Colors.blueGrey,
   //   scaffoldBackgroundColor: Colors.grey[850],
   // );
-  final bool _isDark = false;
+
   @override
   Widget build(BuildContext context) {
     service.SystemChrome.setPreferredOrientations([
       service.DeviceOrientation.portraitUp,
       service.DeviceOrientation.portraitDown,
     ]);
-    return MaterialApp(
-        darkTheme: ThemeData(scaffoldBackgroundColor: Colors.grey[850]),
-        theme: ThemeData(scaffoldBackgroundColor: Colors.green),
-        themeMode: _isDark ? ThemeMode.dark : ThemeMode.light,
-        debugShowCheckedModeBanner: false,
-        initialRoute: '/',
-        routes: {
-          '/': (context) => Home(),
-          '/game': (context) => Game(),
-        });
+    return ValueListenableBuilder(
+      valueListenable: darkNotifier,
+      builder: (BuildContext context, bool isDark, Widget child) {
+        return MaterialApp(
+            theme: ThemeData(
+               brightness: Brightness.light,
+              canvasColor: Colors.white,
+              primaryColor: Colors.grey[850],
+              scaffoldBackgroundColor: isDark ? Colors.black : Colors.lightBlue[800]
+            ),
+            darkTheme: ThemeData(
+              brightness: Brightness.dark,
+              canvasColor: Colors.grey[850],
+              primaryColor: Colors.grey[850],
+              scaffoldBackgroundColor: isDark ? Colors.grey[850] : Colors.lightBlue[800],
+            ),
+            themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
+            debugShowCheckedModeBanner: false,
+            initialRoute: '/',
+            routes: {
+              '/': (context) => Home(),
+              '/game': (context) => Game(),
+            });
+      },
+    );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
+import 'package:tictactoe/main.dart';
 import 'package:tictactoe/providers/game_provider.dart';
 import 'package:tictactoe/widgets/widgets.dart';
 
@@ -9,14 +10,17 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  bool _isDark = true;
+  // bool _isDark = false;
 
   @override
   Widget build(BuildContext context) {
+    var isDark = darkNotifier.value;
+
     final Size size = MediaQuery.of(context).size;
     final GameProvider state = context.watch<GameProvider>();
 
     return Scaffold(
+      // backgroundColor: Colors.grey[850],
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.only(
@@ -24,23 +28,36 @@ class _HomeState extends State<Home> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Switch(value: _isDark,
-                  onChanged: (v) {
-                    setState(() {
-                      _isDark = !_isDark;
-                    });
-                  },),
+              Switch(
+                value: isDark,
+                onChanged: (v) {
+                  setState(() {
+                    isDark = !isDark;
+                    darkNotifier.value = isDark;
+                  });
+                },
+              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                Widgets.textField(
-                          text: 'Tic Tac Toe', shapeSize: 30, color:  Colors.lightBlue[800]),
+                  Widgets.textField(
+                      text: 'Tic Tac Toe',
+                      shapeSize: 30,
+                      color:
+                          isDark ? Colors.lightBlue[800] : Colors.deepPurple),
                   Row(
                     children: [
                       Widgets.textField(
-                          text: 'X', shapeSize: 30, color: Colors.blueAccent),
+                          text: 'X',
+                          shapeSize: 30,
+                          color: isDark
+                              ? Colors.lightBlue[800]
+                              : Colors.deepPurple),
                       Widgets.textField(
-                          text: 'O', shapeSize: 30, color: Colors.amberAccent)
+                          text: 'O',
+                          shapeSize: 30,
+                          color:
+                              isDark ? Colors.amberAccent : Colors.pinkAccent)
                     ],
                   ),
                   TextButton(
@@ -48,7 +65,8 @@ class _HomeState extends State<Home> {
                     style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
                       side: BorderSide(
-                        color: Colors.lightBlue[800],
+                        color:
+                            isDark ? Colors.lightBlue[800] : Colors.deepPurple,
                         width: 2,
                       ),
                       borderRadius: BorderRadius.circular(100.0),
@@ -59,7 +77,9 @@ class _HomeState extends State<Home> {
                       child: Text(
                         "Let's Play",
                         style: TextStyle(
-                          color: Colors.grey[400],
+                          color: isDark
+                              ? Colors.lightBlue[800]
+                              : Colors.deepPurple,
                           fontFamily: 'Montserrat',
                           fontSize: state.getAdaptiveTextSize(context, 16),
                           fontWeight: FontWeight.w400,

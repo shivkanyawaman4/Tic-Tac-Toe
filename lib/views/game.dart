@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
+import 'package:tictactoe/main.dart';
 import 'package:tictactoe/providers/game_provider.dart';
 import 'package:tictactoe/widgets/field.dart';
 import 'package:tictactoe/widgets/widgets.dart';
@@ -9,12 +10,13 @@ class Game extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    var isDark = darkNotifier.value;
 
     final GameProvider state = context.watch<GameProvider>();
     final double boardSize = size.width * 0.75;
 
     final style = TextStyle(
-        color: Colors.grey[500],
+        color: isDark?Colors.grey[500]: Colors.black,
         fontSize: state.getAdaptiveTextSize(context, 20));
     final TextStyle playerName = TextStyle(
       fontSize: state.getAdaptiveTextSize(context, 16),
