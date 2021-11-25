@@ -54,9 +54,6 @@ class _FieldState extends State<Field> {
         child: disabled == true
             ? (state.movesList[widget.row][widget.place] == 'X'
                 ? Widgets.textField(text: 'X', shapeSize: 30, color: Colors.blueAccent)
-                // XSign(
-                //     size.height * 0.07,
-                //   )
                 : state.movesList[widget.row][widget.place] == 'O'
                     ? Widgets.textField(
                         text: 'O', shapeSize: 30, color: Colors.amberAccent)
