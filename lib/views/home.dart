@@ -21,6 +21,33 @@ class _HomeState extends State<Home> {
 
     return Scaffold(
       // backgroundColor: Colors.grey[850],
+      appBar: AppBar(
+        backgroundColor: isDark ? Colors.grey[850] : Colors.white,
+elevation: 0,
+        actions: <Widget>[
+          IconButton(
+            icon: isDark ? Icon(
+              Icons.dark_mode,
+              color:  Colors.white,
+            ):Icon(
+              Icons.light_mode,
+              color:  Colors.black ,
+            ),
+            onPressed: () {
+              darkNotifier.value = !isDark;
+            },
+          ),
+          //  Switch(
+          //       value: isDark,
+          //       onChanged: (v) {
+          //         setState(() {
+          //           isDark = !isDark;
+          //           darkNotifier.value = isDark;
+          //         });
+          //       },
+          //     ),
+           ],
+      ),
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.only(
@@ -28,15 +55,7 @@ class _HomeState extends State<Home> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Switch(
-                value: isDark,
-                onChanged: (v) {
-                  setState(() {
-                    isDark = !isDark;
-                    darkNotifier.value = isDark;
-                  });
-                },
-              ),
+             
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [

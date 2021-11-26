@@ -52,7 +52,7 @@ class _MyAppState extends State<MyApp> {
                brightness: Brightness.light,
               canvasColor: Colors.white,
               primaryColor: Colors.grey[850],
-              scaffoldBackgroundColor: isDark ? Colors.black : Colors.lightBlue[800]
+              scaffoldBackgroundColor: isDark ?Colors.grey[850] : Colors.white
             ),
             darkTheme: ThemeData(
               brightness: Brightness.dark,
